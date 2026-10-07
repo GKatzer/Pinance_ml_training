@@ -1,0 +1,31 @@
+[Unit]
+Description=MinIO object storage (model artifacts -- predictor-ml-training pushes, predictor-ml-inference polls, see Pinance_ML/deploy/auto_retrain)
+Documentation=https://min.io/docs/minio/linux/index.html
+After=network-online.target
+Wants=network-online.target
+AssertFileIsExecutable=/usr/local/bin/minio
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/minio
+EnvironmentFile=/opt/minio/minio.env
+User=minio
+Group=minio
+
+# Standalone single-drive mode ($MINIO_VOLUME below, one directory) -- this
+# deployment's entire job is a few hundred MB of LightGBM model files, not
+# multi-TB object storage, so erasure-coded multi-drive setups (MinIO's
+# usual production topology) are unneeded complexity here.
+ExecStart=/usr/local/bin/minio server --address ${MINIO_BIND_ADDRESS} --console-address ${MINIO_CONSOLE_ADDRESS} ${MINIO_VOLUME}
+
+# MinIO's own production guidance: always restart (an object store that
+# silently stays down after a crash is worse than one that respawns), and
+# raise the fd limit above systemd's default -- auto_retrain.py's push and
+# predictor-ml-inference's poll each open/close a few dozen small files
+# per cycle.
+Restart=always
+RestartSec=5
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

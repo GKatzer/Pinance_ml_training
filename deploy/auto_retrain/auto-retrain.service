@@ -1,0 +1,25 @@
+[Unit]
+Description=Pinance regressor auto-retrain (train, gate against production, push candidate to MinIO)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# /opt/Pinance_ML appears THREE times below (WorkingDirectory,
+# EnvironmentFile, and inside ExecStart's interpreter path) -- all three
+# must be edited together if this repo actually lives somewhere else.
+# Missing one is a real, observed failure mode: WorkingDirectory pointing
+# one place while ExecStart's venv python still points at the old one
+# means the venv launches fine but then fails to open scripts/
+# auto_retrain.py (a relative path, resolved against WorkingDirectory) --
+# "can't open file '<wrong-dir>/scripts/auto_retrain.py'".
+WorkingDirectory=/opt/Pinance_ML
+EnvironmentFile=/opt/Pinance_ML/.env
+User=pinance
+Nice=10
+
+# One process, not two independent scripts like news-parser.service --
+# auto_retrain.py already catches and logs a per-symbol exception itself
+# (one symbol's failure doesn't stop the others), so no `-` prefix trick
+# needed here.
+ExecStart=/opt/Pinance_ML/.venv/bin/python scripts/auto_retrain.py

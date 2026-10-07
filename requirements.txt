@@ -1,0 +1,60 @@
+pandas>=2.2
+numpy>=1.26
+scipy>=1.11
+SQLAlchemy>=2.0
+psycopg2-binary>=2.9
+python-dotenv>=1.0
+ta>=0.11
+scikit-learn>=1.4
+lightgbm>=4.0
+pytest>=8.0
+
+# News / text layer (README "Текстовый слой")
+feedparser>=6.0
+transformers>=4.40
+torch>=2.2
+
+# Level 3: LoRA fine-tuning (README "Уровень 3")
+peft>=0.11
+trafilatura>=2.0  # scripts/backfill_article_bodies.py -- generic article-body extraction
+# huggingface_hub's httpx client needs this to use a SOCKS proxy (some
+# dev machines route outbound through one) -- without it, any HF Hub call
+# fails with "Using SOCKS proxy, but the 'socksio' package is not installed"
+socksio>=1.0
+
+# Level 2: structured extraction via small instruct model (README "Уровень 2")
+# PyPI's sdist needs a C/C++ toolchain (CMake + compiler) to build llama.cpp --
+# this prebuilt-wheel index avoids that requirement on machines without one.
+--extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+llama-cpp-python>=0.3
+
+# Cross-article novelty feature (project_24h_horizon_plan.md's last branch,
+# 2026-08-01): dedicated sentence-embedding model, not FinBERT/Qwen -- those
+# are classification/generation models, not trained for semantic similarity.
+sentence-transformers>=3.0
+
+# Auto-retrain (scripts/auto_retrain.py): pushes candidate/production model
+# artifacts to the MinIO bucket predictor-ml-inference (VDS2) polls.
+minio>=7.2
+
+# Promote-if-better (scripts/promote_if_better.py): reads live shadow
+# metrics from predictor-backend's admin API over plain HTTP (Tailscale).
+requests>=2.31
+
+# Experiment tracking (pinance_ml.tracking): journals retrain runs
+# (scripts/auto_retrain*.py) and feature-gain / screening experiments
+# (scripts/measure_*.py, scripts/screen_*.py) to the MLflow server on VDS3
+# (deploy/mlflow/). Best-effort side-channel only -- pinance_ml.tracking is
+# a silent no-op when PINANCE_MLFLOW_TRACKING_URI isn't set, so this stays
+# an optional dependency in practice even though it's listed here. Full
+# mlflow (not mlflow-skinny): the same box also serves the tracking UI the
+# frontend's tab 03 links out to.
+mlflow>=2.16
+# boto3 is what the mlflow client (and the server's proxied-artifact path)
+# use to reach MinIO's S3 API -- core mlflow does NOT pull it in. Without
+# it, params/metrics still log fine but every artifact upload (reports/*,
+# eval_metrics.json, per-horizon CSVs, feature_importance.csv) silently
+# becomes a no-op: pinance_ml.tracking.log_artifact swallows the resulting
+# error by design. MLFLOW_S3_ENDPOINT_URL / AWS_ACCESS_KEY_ID /
+# AWS_SECRET_ACCESS_KEY come from the environment (see .env.example).
+boto3>=1.34

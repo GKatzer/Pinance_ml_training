@@ -1,0 +1,27 @@
+[Unit]
+Description=Pinance confidence-corridor auto-retrain (train, gate against production, push candidate to MinIO)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# /opt/Pinance_ML appears THREE times below -- keep in sync with
+# auto-retrain.service's copy of this same comment/edit if this repo's
+# clone path ever changes (both units must point at the same place).
+WorkingDirectory=/opt/Pinance_ML
+EnvironmentFile=/opt/Pinance_ML/.env
+User=pinance
+Nice=10
+
+# A genuinely separate script from auto-retrain.service (not the same
+# script with a flag) -- the corridor is a different model with a
+# different promotion criterion (pinball loss + coverage, not MAE) and a
+# different natural refresh cadence (weekly, see
+# auto-retrain-quantiles.timer -- the corridor's calibration doesn't
+# drift day to day the way point predictions can). It never retrains the
+# point models at all, and its push merges only its own quantile_*
+# metadata fields onto whatever's in the target slot -- see
+# scripts/auto_retrain_quantiles.py's own module docstring for the full
+# reasoning (this was previously a --include-quantiles flag on the daily
+# unit; reverted, see project memory: project_quantile_modeling_task.md).
+ExecStart=/opt/Pinance_ML/.venv/bin/python scripts/auto_retrain_quantiles.py

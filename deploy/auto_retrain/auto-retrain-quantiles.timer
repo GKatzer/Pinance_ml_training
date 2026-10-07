@@ -1,0 +1,15 @@
+[Unit]
+Description=Run auto-retrain-quantiles.service once a week
+
+[Timer]
+# Sunday 04:30 UTC -- comfortably after auto-retrain.timer's daily 03:00
+# run typically finishes (~70-90min for today's 4 symbols, point-only) so
+# the two units don't run concurrently and race to push the same MinIO
+# slot. Weekly, not daily, because the corridor's own calibration doesn't
+# need refreshing as eagerly as point predictions do -- see
+# auto-retrain-quantiles.service's comment.
+OnCalendar=Sun *-*-* 04:30:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

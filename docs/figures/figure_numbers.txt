@@ -1,0 +1,53 @@
+DIRECTIONAL ACCURACY BY HORIZON (pooled over folds, n_test-weighted)
+BTCUSDT: DA h=1 52.37%  h=2..12 range 53.01-53.38%  naive range 49.96-50.71%  rows/horizon 837,143
+ETHUSDT: DA h=1 51.94%  h=2..12 range 52.30-52.72%  naive range 49.71-50.46%  rows/horizon 837,151
+BNBUSDT: DA h=1 49.22%  h=2..12 range 50.09-51.31%  naive range 48.18-50.38%  rows/horizon 837,150
+SOLUSDT: DA h=1 49.24%  h=2..12 range 50.00-50.88%  naive range 48.23-49.40%  rows/horizon 598,855
+-> docs/media/da-by-horizon.png
+
+-> docs/media/da-btc-by-year.png
+
+BTC DA per fold: 2018-08: 53.96% (naive 51.17%), 2019-08: 54.21% (naive 50.29%), 2020-08: 53.27% (naive 50.96%), 2021-08: 52.57% (naive 49.96%), 2022-08: 53.70% (naive 50.24%), 2023-08: 53.20% (naive 50.61%), 2024-07: 51.83% (naive 50.51%), 2025-07: 52.37% (naive 49.84%)
+
+MAE AND DA VS NAIVE (the README results table)
+symbol  folds  MAE_lgbm  MAE_naive  dMAE%   p(MAE)  folds_better  DA_lgbm  DA_naive  dDA_pp  folds_DA_better  p(DA)
+BTCUSDT    8   0.002799  0.002792   +0.25   0.292   4/8         53.14   50.45   +2.69   8/8            0.0000
+ETHUSDT    8   0.003821  0.003720   +2.72   0.301   4/8         52.47   50.23   +2.23   8/8            0.0003
+BNBUSDT    8   0.003752  0.003704   +1.29   0.100   2/8         50.79   49.69   +1.10   7/8            0.0315
+SOLUSDT    6   0.005836  0.005491   +6.27   0.303   1/6         50.56   49.15   +1.41   6/6            0.0004
+-> docs/media/mae-vs-naive-by-fold.png
+
+CORRIDOR COVERAGE (BTCUSDT, technical_only, 9 folds, n_test-weighted)
+q0.1: pooled coverage 0.1047; folds within +/-0.03: 6/9; worst fold 0 = 0.167
+q0.9: pooled coverage 0.9062; folds within +/-0.03: 7/9; worst fold 8 = 0.879
+-> docs/media/corridor-coverage.png
+
+NEWS-FEATURE EXPERIMENTS: change in directional accuracy (pp), unweighted mean over folds, 95% t-interval
+(LoRA variants present: ['technical_only', 'with_news']; 24h variants present: ['technical_only', 'with_level1_and_llm_event_24h', 'with_level1_news'])
+FinBERT features, BTC              -0.020 pp  [-0.062, +0.023]  folds=8
+FinBERT features, ETH              -0.026 pp  [-0.148, +0.097]  folds=8
+FinBERT features, BNB              -0.023 pp  [-0.089, +0.044]  folds=8
+FinBERT features, SOL              +0.019 pp  [-0.060, +0.098]  folds=6
+LoRA-tuned FinBERT, BTC            +0.045 pp  [-0.010, +0.099]  folds=8
+LLM event type vs FinBERT, BTC     -0.029 pp  [-0.150, +0.092]  folds=9
+24 h horizon: + LLM event, BTC     -0.126 pp  [-0.671, +0.420]  folds=8
+-> docs/media/news-effects.png
+
+OBV FIX (BTCUSDT, walk-forward, current LightGBM defaults)
+directional_accuracy: before 53.11340  after 53.16552  delta +0.05212  (relative +0.10%)  paired t-test p=0.523  folds=9
+mae: before 0.00277  after 0.00277  delta -0.00000  (relative -0.13%)  paired t-test p=0.098  folds=9
+synthetic mismatch ratio: cumulative obv 3.306, obv_roc_36 1.36e-15
+synthetic parity check, 20 candles: max |full - window| cumulative obv = 4678.8 (values span -4702..-1704); obv_roc_36 = 3.33e-16
+-> docs/media/obv-fix.png
+
+HYPERPARAMETER TUNING, BTCUSDT: pooled change in DA against the default, day-block bootstrap (7-day blocks, 4000 draws)
+selection folds 0-4 (2018-2023)    reg_strong                     dDA +0.135 pp  CI [+0.052, +0.224]  dMAE -0.54%  days=1826
+selection folds 0-4 (2018-2023)    grid_nl7_mcs100_mid_k100       dDA +0.418 pp  CI [+0.304, +0.534]  dMAE -1.09%  days=1826
+selection folds 0-4 (2018-2023)    grid_nl7_mcs300_strong_k100    dDA +0.381 pp  CI [+0.262, +0.502]  dMAE -1.10%  days=1826
+selection folds 0-4 (2018-2023)    grid_nl7_mcs100_none_k100      dDA +0.418 pp  CI [+0.306, +0.536]  dMAE -1.09%  days=1826
+held-out folds 5-8 (2023-2026)     reg_strong                     dDA +0.062 pp  CI [-0.006, +0.139]  dMAE -0.06%  days=1148
+held-out folds 5-8 (2023-2026)     grid_nl7_mcs100_mid_k100       dDA -0.161 pp  CI [-0.310, -0.014]  dMAE -0.02%  days=1148
+held-out folds 5-8 (2023-2026)     grid_nl7_mcs300_strong_k100    dDA -0.164 pp  CI [-0.311, -0.019]  dMAE -0.03%  days=1148
+held-out folds 5-8 (2023-2026)     grid_nl7_mcs100_none_k100      dDA -0.158 pp  CI [-0.305, -0.008]  dMAE -0.02%  days=1148
+-> docs/media/tuning-select-vs-judge.png
+

@@ -1,0 +1,39 @@
+[Unit]
+Description=Pinance news parser (RSS fetch + FinBERT scoring)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# /opt/Pinance_ML appears FOUR times below (WorkingDirectory,
+# EnvironmentFile, and inside both ExecStart lines' interpreter path) --
+# all four must be edited together if this repo actually lives somewhere
+# else. Missing one is a real, observed failure mode on this same
+# project's auto-retrain.service: WorkingDirectory edited but ExecStart's
+# venv python left pointing at the old path launches fine, then fails to
+# open the (relative, WorkingDirectory-resolved) script path.
+WorkingDirectory=/opt/Pinance_ML
+EnvironmentFile=/opt/Pinance_ML/.env
+User=pinance
+Nice=10
+
+# transformers/huggingface_hub resolve their download cache off $HOME by
+# default, which is not guaranteed to be writable (or even set) for a
+# --system service account -- observed as a PermissionError trying to
+# mkdir a .cache dir under WorkingDirectory on first real deploy.
+# CacheDirectory creates/owns /var/cache/pinance-news-parser for this
+# service automatically; no manual mkdir/chown needed. %C is the cache
+# *root* (/var/cache), not the service's own subdirectory -- it does NOT
+# already include "pinance-news-parser" -- confirmed the hard way: a first
+# version of this line was %C/huggingface, which resolved to the
+# unmanaged, root-owned /var/cache/huggingface instead.
+CacheDirectory=pinance-news-parser
+Environment=HF_HOME=%C/pinance-news-parser/huggingface
+
+# `-` prefix: a failed step doesn't block the next one or fail the whole
+# unit. fetch dedups by URL (DB unique constraint) and score only touches
+# WHERE sentiment_pos IS NULL, so a failed run here just gets picked up
+# cleanly on the next timer tick 5 minutes later -- see README.md in this
+# directory.
+ExecStart=-/opt/Pinance_ML/.venv/bin/python scripts/fetch_news.py
+ExecStart=-/opt/Pinance_ML/.venv/bin/python scripts/score_pending_news.py

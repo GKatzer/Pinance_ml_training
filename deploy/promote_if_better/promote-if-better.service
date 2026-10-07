@@ -1,0 +1,12 @@
+[Unit]
+Description=Pinance promote-if-better (compare candidate vs production on live shadow metrics, promote candidate if it clears the bar)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/Pinance_ML
+EnvironmentFile=/opt/Pinance_ML/.env
+User=pinance
+Nice=10
+ExecStart=/opt/Pinance_ML/.venv/bin/python scripts/promote_if_better.py

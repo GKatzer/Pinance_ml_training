@@ -1,0 +1,49 @@
+[2026-07-23 02:26:46] Symbols (1): ['BTCUSDT']
+[2026-07-23 02:26:46] Logging to reports\news_feature_gain.log, incremental fold results to reports\btc_pilot_folds.csv, news feature importance to reports\news_feature_gain_importance.csv
+[2026-07-23 02:26:46] [1/1] starting BTCUSDT
+[2026-07-23 02:26:46] BTCUSDT: loading candles + news
+[2026-07-23 02:27:15] BTCUSDT: 24645 news items for asset BTC
+[2026-07-23 02:27:59] BTCUSDT: 8 walk-forward folds (16 fold-variants to train+score)
+[2026-07-23 02:28:41]   [fold 0/7] technical_only: 12 models trained+scored in 42.0s (1/16 fold-variants, ETA 10.5min for BTCUSDT)
+[2026-07-23 02:29:26]   [fold 0/7] with_news: 12 models trained+scored in 44.3s (2/16 fold-variants, ETA 10.1min for BTCUSDT) | news gain share 2.33% of total (top: news_intensity=1.06%)
+[2026-07-23 02:30:53]   [fold 1/7] technical_only: 12 models trained+scored in 87.5s (3/16 fold-variants, ETA 12.6min for BTCUSDT)
+[2026-07-23 02:32:23]   [fold 1/7] with_news: 12 models trained+scored in 90.0s (4/16 fold-variants, ETA 13.2min for BTCUSDT) | news gain share 6.61% of total (top: sentiment_weighted=2.30%)
+[2026-07-23 02:34:37]   [fold 2/7] technical_only: 12 models trained+scored in 134.2s (5/16 fold-variants, ETA 14.6min for BTCUSDT)
+[2026-07-23 02:36:52]   [fold 2/7] with_news: 12 models trained+scored in 134.4s (6/16 fold-variants, ETA 14.8min for BTCUSDT) | news gain share 6.19% of total (top: sentiment_weighted=2.21%)
+[2026-07-23 02:39:34]   [fold 3/7] technical_only: 12 models trained+scored in 162.6s (7/16 fold-variants, ETA 14.9min for BTCUSDT)
+[2026-07-23 02:42:26]   [fold 3/7] with_news: 12 models trained+scored in 171.7s (8/16 fold-variants, ETA 14.4min for BTCUSDT) | news gain share 6.77% of total (top: sentiment_dispersion=2.10%)
+[2026-07-23 02:45:41]   [fold 4/7] technical_only: 12 models trained+scored in 195.4s (9/16 fold-variants, ETA 13.8min for BTCUSDT)
+[2026-07-23 02:49:11]   [fold 4/7] with_news: 12 models trained+scored in 210.0s (10/16 fold-variants, ETA 12.7min for BTCUSDT) | news gain share 6.87% of total (top: sentiment_dispersion=2.26%)
+[2026-07-23 02:52:58]   [fold 5/7] technical_only: 12 models trained+scored in 226.6s (11/16 fold-variants, ETA 11.4min for BTCUSDT)
+[2026-07-23 02:57:03]   [fold 5/7] with_news: 12 models trained+scored in 244.9s (12/16 fold-variants, ETA 9.7min for BTCUSDT) | news gain share 6.42% of total (top: sentiment_dispersion=2.06%)
+[2026-07-23 03:01:45]   [fold 6/7] technical_only: 12 models trained+scored in 281.6s (13/16 fold-variants, ETA 7.8min for BTCUSDT)
+[2026-07-23 03:06:33]   [fold 6/7] with_news: 12 models trained+scored in 288.9s (14/16 fold-variants, ETA 5.5min for BTCUSDT) | news gain share 6.56% of total (top: sentiment_dispersion=2.25%)
+[2026-07-23 03:11:27]   [fold 7/7] technical_only: 12 models trained+scored in 293.8s (15/16 fold-variants, ETA 2.9min for BTCUSDT)
+[2026-07-23 03:16:38]   [fold 7/7] with_news: 12 models trained+scored in 310.8s (16/16 fold-variants, ETA 0.0min for BTCUSDT) | news gain share 6.85% of total (top: sentiment_dispersion=2.40%)
+[2026-07-23 03:16:38] [1/1] BTCUSDT: done, 192 total rows saved to reports\btc_pilot_folds.csv (run elapsed 49.9min)
+[2026-07-23 03:16:38] Saved per-horizon comparison to reports\news_feature_gain_summary.csv
+[2026-07-23 03:16:38] 
+ symbol  horizon  mae_technical_only  directional_accuracy_technical_only  mae_with_news  directional_accuracy_with_news  mae_delta  directional_accuracy_delta
+BTCUSDT        1             0.00118                              0.52370        0.00118                         0.52428   -0.00000                     0.00059
+BTCUSDT        2             0.00165                              0.53006        0.00165                         0.52983   -0.00000                    -0.00024
+BTCUSDT        3             0.00200                              0.53220        0.00200                         0.53148    0.00000                    -0.00072
+BTCUSDT        4             0.00230                              0.53248        0.00231                         0.53224    0.00000                    -0.00023
+BTCUSDT        5             0.00257                              0.53342        0.00257                         0.53353   -0.00000                     0.00011
+BTCUSDT        6             0.00281                              0.53287        0.00281                         0.53259    0.00000                    -0.00029
+BTCUSDT        7             0.00302                              0.53379        0.00302                         0.53254    0.00000                    -0.00125
+BTCUSDT        8             0.00323                              0.53211        0.00323                         0.53230    0.00000                     0.00019
+BTCUSDT        9             0.00342                              0.53206        0.00343                         0.53141    0.00001                    -0.00065
+BTCUSDT       10             0.00362                              0.53135        0.00362                         0.53156   -0.00000                     0.00021
+BTCUSDT       11             0.00380                              0.53126        0.00380                         0.53191    0.00000                     0.00065
+BTCUSDT       12             0.00397                              0.53170        0.00397                         0.53101    0.00000                    -0.00070
+[2026-07-23 03:16:38] Saved news feature importance to reports\news_feature_gain_importance.csv
+[2026-07-23 03:16:38] Mean gain % of total per news feature, by symbol:
+feature  event_hack_60m  event_regulation_60m  max_magnitude_60m  news_intensity  sentiment_dispersion  sentiment_weighted
+symbol                                                                                                                    
+BTCUSDT           0.046                 0.005              0.583           1.687                 1.831               1.922
+[2026-07-23 03:16:38] Total run time: 49.9min
+[2026-07-28 21:02:12] Symbols (1): ['BTCUSDT']
+[2026-07-28 21:02:12] Logging to reports\news_feature_gain.log, incremental fold results to reports\btc_finbert_lora_folds.csv, news feature importance to reports\btc_finbert_lora_importance.csv
+[2026-07-28 21:02:12] [1/1] starting BTCUSDT
+[2026-07-28 21:02:12] BTCUSDT: loading candles + news
+[2026-07-28 21:02:40] BTCUSDT: 24723 news items for asset BTC

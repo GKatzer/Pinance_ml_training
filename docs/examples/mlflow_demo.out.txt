@@ -1,0 +1,3 @@
+SYNTH-A: candidate MAE 0.001787 DA 0.5265 | production MAE 0.001789 DA 0.5224 | rejected
+SYNTH-B: candidate MAE 0.001874 DA 0.4967 | production MAE 0.001865 DA 0.5017 | rejected
+SYNTH-C: candidate MAE 0.001686 DA 0.5053 | production MAE 0.001678 DA 0.5127 | rejected

@@ -1,0 +1,16 @@
+[Unit]
+Description=Run auto-retrain.service once a day
+
+[Timer]
+# OnCalendar (a fixed time of day), not OnUnitActiveSec (N after last run)
+# -- the latter drifts run-to-run with however long training itself took;
+# a fixed daily time is what README's "ежедневно" actually means and
+# keeps retrain runs from creeping later every day.
+OnCalendar=*-*-* 03:00:00
+# <training-host> is the one non-24/7 machine in this project (README) -- Persistent
+# means a tick missed while the laptop was off/asleep fires once promptly
+# on the next boot instead of silently waiting for tomorrow's 03:00.
+Persistent=true
+
+[Install]
+WantedBy=timers.target

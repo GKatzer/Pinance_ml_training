@@ -1,0 +1,119 @@
+[2026-08-01 22:19:57] BTCUSDT: loading candles
+[2026-08-01 22:20:31] BTC: 24866 news items, 24834 with Level 2 event_type (99.9%)
+[2026-08-01 22:21:13] BTCUSDT: 9 walk-forward folds x 2 variants x 12 horizons x 3 quantiles = 18 fold-variants to train+score
+[2026-08-01 22:23:06]   [fold 0/8] technical_only: 36 models trained+scored in 113.2s (1/18, ETA 53.5min)
+[2026-08-01 22:25:01]   [fold 0/8] with_event_and_magnitude: 36 models trained+scored in 115.2s (2/18, ETA 40.5min)
+[2026-08-01 22:29:00]   [fold 1/8] technical_only: 36 models trained+scored in 238.1s (3/18, ETA 45.2min)
+[2026-08-01 22:33:07]   [fold 1/8] with_event_and_magnitude: 36 models trained+scored in 247.7s (4/18, ETA 46.1min)
+[2026-08-01 22:39:03]   [fold 2/8] technical_only: 36 models trained+scored in 355.3s (5/18, ETA 49.6min)
+[2026-08-01 22:45:14]   [fold 2/8] with_event_and_magnitude: 36 models trained+scored in 371.1s (6/18, ETA 50.5min)
+[2026-08-01 22:52:41]   [fold 3/8] technical_only: 36 models trained+scored in 447.0s (7/18, ETA 51.4min)
+[2026-08-01 23:00:53]   [fold 3/8] with_event_and_magnitude: 36 models trained+scored in 492.7s (8/18, ETA 51.2min)
+[2026-08-01 23:10:03]   [fold 4/8] technical_only: 36 models trained+scored in 549.9s (9/18, ETA 50.1min)
+[2026-08-01 23:19:40]   [fold 4/8] with_event_and_magnitude: 36 models trained+scored in 576.8s (10/18, ETA 47.8min)
+[2026-08-01 23:30:17]   [fold 5/8] technical_only: 36 models trained+scored in 636.7s (11/18, ETA 44.8min)
+[2026-08-01 23:41:16]   [fold 5/8] with_event_and_magnitude: 36 models trained+scored in 659.4s (12/18, ETA 40.7min)
+[2026-08-01 23:53:29]   [fold 6/8] technical_only: 36 models trained+scored in 732.6s (13/18, ETA 36.0min)
+[2026-08-02 00:06:36]   [fold 6/8] with_event_and_magnitude: 36 models trained+scored in 787.3s (14/18, ETA 30.5min)
+[2026-08-02 00:21:15]   [fold 7/8] technical_only: 36 models trained+scored in 879.1s (15/18, ETA 24.3min)
+[2026-08-02 00:39:27]   [fold 7/8] with_event_and_magnitude: 36 models trained+scored in 1091.7s (16/18, ETA 17.4min)
+[2026-08-02 00:57:43]   [fold 8/8] technical_only: 36 models trained+scored in 1095.6s (17/18, ETA 9.3min)
+[2026-08-02 01:16:32]   [fold 8/8] with_event_and_magnitude: 36 models trained+scored in 1129.0s (18/18, ETA 0.0min)
+[2026-08-02 01:16:32] 
+=== BASELINE: technical_only, pooled across folds ===
+[2026-08-02 01:16:32] 
+ symbol  horizon  quantile  pinball_loss  coverage  n_folds  n_test_total
+BTCUSDT        1   0.10000       0.00029   0.10133        9        840379
+BTCUSDT        1   0.50000       0.00059   0.50453        9        840379
+BTCUSDT        1   0.90000       0.00029   0.90417        9        840379
+BTCUSDT        2   0.10000       0.00041   0.10530        9        840355
+BTCUSDT        2   0.50000       0.00082   0.50627        9        840355
+BTCUSDT        2   0.90000       0.00040   0.90501        9        840355
+BTCUSDT        3   0.10000       0.00051   0.10458        9        840331
+BTCUSDT        3   0.50000       0.00100   0.51079        9        840331
+BTCUSDT        3   0.90000       0.00050   0.90357        9        840331
+BTCUSDT        4   0.10000       0.00060   0.10528        9        840307
+BTCUSDT        4   0.50000       0.00115   0.51089        9        840307
+BTCUSDT        4   0.90000       0.00058   0.90540        9        840307
+BTCUSDT        5   0.10000       0.00067   0.10361        9        840283
+BTCUSDT        5   0.50000       0.00128   0.51423        9        840283
+BTCUSDT        5   0.90000       0.00065   0.90549        9        840283
+BTCUSDT        6   0.10000       0.00074   0.10377        9        840259
+BTCUSDT        6   0.50000       0.00140   0.51341        9        840259
+BTCUSDT        6   0.90000       0.00071   0.90542        9        840259
+BTCUSDT        7   0.10000       0.00080   0.10478        9        840235
+BTCUSDT        7   0.50000       0.00151   0.51461        9        840235
+BTCUSDT        7   0.90000       0.00077   0.90660        9        840235
+BTCUSDT        8   0.10000       0.00087   0.10779        9        840211
+BTCUSDT        8   0.50000       0.00161   0.51775        9        840211
+BTCUSDT        8   0.90000       0.00083   0.90724        9        840211
+BTCUSDT        9   0.10000       0.00093   0.10599        9        840187
+BTCUSDT        9   0.50000       0.00171   0.51714        9        840187
+BTCUSDT        9   0.90000       0.00089   0.90909        9        840187
+BTCUSDT       10   0.10000       0.00099   0.10322        9        840163
+BTCUSDT       10   0.50000       0.00181   0.52036        9        840163
+BTCUSDT       10   0.90000       0.00094   0.90543        9        840163
+BTCUSDT       11   0.10000       0.00104   0.10471        9        840139
+BTCUSDT       11   0.50000       0.00190   0.52254        9        840139
+BTCUSDT       11   0.90000       0.00099   0.90797        9        840139
+BTCUSDT       12   0.10000       0.00110   0.10637        9        840115
+BTCUSDT       12   0.50000       0.00198   0.52160        9        840115
+BTCUSDT       12   0.90000       0.00103   0.90879        9        840115
+[2026-08-02 01:16:32] 
+=== HYPOTHESIS: with_event_and_magnitude vs technical_only, pooled per (horizon, quantile) ===
+[2026-08-02 01:16:32] 
+ symbol  horizon  quantile  pinball_loss_technical_only  coverage_technical_only  pinball_loss_with_event_and_magnitude  coverage_with_event_and_magnitude  pinball_loss_delta
+BTCUSDT        1  0.100000                     0.000288                 0.101327                               0.000288                           0.101591            0.000000
+BTCUSDT        1  0.500000                     0.000588                 0.504528                               0.000588                           0.504101           -0.000000
+BTCUSDT        1  0.900000                     0.000286                 0.904167                               0.000286                           0.904200           -0.000000
+BTCUSDT        2  0.100000                     0.000414                 0.105298                               0.000414                           0.104465            0.000000
+BTCUSDT        2  0.500000                     0.000822                 0.506273                               0.000822                           0.508127            0.000000
+BTCUSDT        2  0.900000                     0.000404                 0.905007                               0.000404                           0.905523            0.000000
+BTCUSDT        3  0.100000                     0.000511                 0.104579                               0.000511                           0.103982            0.000000
+BTCUSDT        3  0.500000                     0.000998                 0.510794                               0.000998                           0.509204           -0.000000
+BTCUSDT        3  0.900000                     0.000495                 0.903570                               0.000496                           0.904069            0.000001
+BTCUSDT        4  0.100000                     0.000596                 0.105281                               0.000596                           0.106002            0.000000
+BTCUSDT        4  0.500000                     0.001150                 0.510887                               0.001151                           0.510292            0.000000
+BTCUSDT        4  0.900000                     0.000577                 0.905399                               0.000577                           0.905208           -0.000001
+BTCUSDT        5  0.100000                     0.000672                 0.103608                               0.000673                           0.103418            0.000000
+BTCUSDT        5  0.500000                     0.001283                 0.514233                               0.001284                           0.514734            0.000001
+BTCUSDT        5  0.900000                     0.000648                 0.905493                               0.000647                           0.905735           -0.000000
+BTCUSDT        6  0.100000                     0.000743                 0.103766                               0.000742                           0.105632           -0.000001
+BTCUSDT        6  0.500000                     0.001402                 0.513413                               0.001404                           0.516363            0.000002
+BTCUSDT        6  0.900000                     0.000713                 0.905421                               0.000714                           0.906932            0.000001
+BTCUSDT        7  0.100000                     0.000804                 0.104783                               0.000804                           0.107101            0.000000
+BTCUSDT        7  0.500000                     0.001509                 0.514606                               0.001509                           0.514545           -0.000000
+BTCUSDT        7  0.900000                     0.000773                 0.906601                               0.000772                           0.906362           -0.000001
+BTCUSDT        8  0.100000                     0.000867                 0.107791                               0.000867                           0.107631           -0.000000
+BTCUSDT        8  0.500000                     0.001614                 0.517754                               0.001613                           0.516624           -0.000001
+BTCUSDT        8  0.900000                     0.000833                 0.907238                               0.000832                           0.905933           -0.000001
+BTCUSDT        9  0.100000                     0.000926                 0.105987                               0.000919                           0.107209           -0.000006
+BTCUSDT        9  0.500000                     0.001709                 0.517136                               0.001709                           0.514031           -0.000001
+BTCUSDT        9  0.900000                     0.000890                 0.909086                               0.000883                           0.907491           -0.000007
+BTCUSDT       10  0.100000                     0.000985                 0.103218                               0.000980                           0.107781           -0.000005
+BTCUSDT       10  0.500000                     0.001807                 0.520359                               0.001807                           0.521160           -0.000000
+BTCUSDT       10  0.900000                     0.000935                 0.905427                               0.000935                           0.905010            0.000000
+BTCUSDT       11  0.100000                     0.001045                 0.104710                               0.001048                           0.105527            0.000003
+BTCUSDT       11  0.500000                     0.001898                 0.522536                               0.001898                           0.524969            0.000000
+BTCUSDT       11  0.900000                     0.000990                 0.907965                               0.000987                           0.906699           -0.000003
+BTCUSDT       12  0.100000                     0.001096                 0.106371                               0.001094                           0.105425           -0.000002
+BTCUSDT       12  0.500000                     0.001981                 0.521601                               0.001981                           0.520575            0.000000
+BTCUSDT       12  0.900000                     0.001033                 0.908793                               0.001034                           0.908252            0.000000
+[2026-08-02 01:16:32] 
+=== Pre-registered pass-bar check ===
+[2026-08-02 01:16:32] Overall pooled pinball loss -- technical_only: 0.000894
+[2026-08-02 01:16:32] Mean per-fold delta (candidate - technical_only): -0.000001 (+0.12% relative improvement if negative)
+[2026-08-02 01:16:32] Paired t-test across 9 folds: t=-1.663, p=0.1348, folds favoring candidate: 6/9
+[2026-08-02 01:16:32] Minimum detectable effect at 80% power given this fold count/variance: 0.000002 absolute pinball loss
+[2026-08-02 01:16:32] 
+Coverage calibration (folds within +/-0.03 of nominal alpha):
+[2026-08-02 01:16:32] 
+                 variant  quantile  n_folds  folds_within_tolerance  mean_coverage
+          technical_only       0.1        9                       6       0.110458
+          technical_only       0.9        9                       7       0.910213
+with_event_and_magnitude       0.1        9                       7       0.110862
+with_event_and_magnitude       0.9        9                       7       0.910155
+[2026-08-02 01:16:32] 
+>>> Pre-registered bar: pinball improvement>=1.0% [False], significant+directionally consistent [False], majority-fold coverage within tolerance [True] => candidate DOES NOT PASS the pre-registered bar.
+[2026-08-02 01:16:32] 
+Total run time: 176.6min

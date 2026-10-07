@@ -1,0 +1,20 @@
+[Unit]
+Description=Run news-parser.service every 5 minutes
+
+[Timer]
+OnBootSec=1min
+# OnUnitInactiveSec (5min after the last run *finished*), not
+# OnUnitActiveSec (5min after it *started*): with the latter, a run longer
+# than 5min -- observed 6-7.5min whenever the redsocks upstream is down and
+# every feed times out -- is retriggered the very second it exits, so a
+# broken proxy gets hammered with back-to-back cycles. This guarantees a
+# 5min gap between runs. (systemd never starts a second copy of an active
+# oneshot unit either way; this only affects the gap, not overlap.)
+OnUnitInactiveSec=5min
+# <training-host> is the one non-24/7 machine in this project (README) -- OnBootSec
+# above is what fires the first run after a boot. (Persistent= is a no-op
+# for monotonic timers like these two; it only applies to OnCalendar=.)
+Persistent=true
+
+[Install]
+WantedBy=timers.target

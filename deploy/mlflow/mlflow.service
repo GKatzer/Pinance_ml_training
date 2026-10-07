@@ -1,0 +1,38 @@
+[Unit]
+Description=MLflow tracking server (experiment tracking for predictor-ml-training -- auto_retrain*.py runs + measure_*/screen_* experiments; also serves the UI the frontend's tab 03 links out to)
+Documentation=https://mlflow.org/docs/latest/tracking/server.html
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Same /opt/Pinance_ML placeholder caveat as
+# deploy/auto_retrain/auto-retrain.service: WorkingDirectory,
+# EnvironmentFile's containing project, and the venv path inside ExecStart
+# all assume this repo lives at /opt/Pinance_ML -- if it doesn't, the venv
+# still launches but `mlflow` may resolve to the wrong interpreter. The
+# mlflow CLI is this repo's own venv entrypoint (mlflow is in
+# requirements.txt), so there's nothing else to install.
+WorkingDirectory=/opt/Pinance_ML
+EnvironmentFile=/opt/mlflow/mlflow.env
+User=pinance
+Nice=10
+
+# --backend-store-uri: the dedicated `mlflow` DB on <backend-host>'s Postgres.
+# --artifacts-destination: the pinance-mlflow MinIO bucket on <training-host> (NOT
+#   pinance-models -- see mlflow.env.example). Modern mlflow enables
+#   --serve-artifacts by default once this is set; clients that also have
+#   MLFLOW_S3_ENDPOINT_URL + AWS_* (predictor-ml-training's .env) upload
+#   straight to MinIO rather than proxying through here.
+# --host: the Tailscale interface, same model as deploy/minio/minio.service
+#   (which binds its own tailnet IP too) -- <backend-host> and the desktop training
+#   box both need to reach this.
+ExecStart=/opt/Pinance_ML/.venv/bin/mlflow server --backend-store-uri ${MLFLOW_BACKEND_STORE_URI} --artifacts-destination ${MLFLOW_ARTIFACTS_DESTINATION} --host ${MLFLOW_BIND_ADDRESS} --port ${MLFLOW_PORT}
+
+# A tracking server that silently stays down loses retrain history without
+# anyone noticing until they open tab 03 -- always restart.
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
